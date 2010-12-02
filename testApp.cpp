@@ -101,12 +101,20 @@ void testApp::setup() {
 	gui.addToggle("drawParticles", &drawParticles); 
 	gui.addToggle("renderUsingVA", &renderUsingVA); 
 #endif
+
+	// VIdeo input
+	frameByframe = false;
+	
+	fingerMovie.loadMovie("/Users/omercho/Documents/OF/of_preRelease_v0061_osxSL_FAT/apps/omer/fluids/bin/data/fingers.mov");
+	fingerMovie.play();
 	
 }
 
 
 //--------------------------------------------------------------
 void testApp::update(){
+	fingerMovie.idleMovie();
+	
 #ifdef USE_TUIO
 	tuioClient.getMessage();
 	
@@ -144,6 +152,10 @@ void testApp::draw(){
 #ifdef USE_GUI 
 	gui.draw();
 #endif
+
+	
+	ofSetColor(0xFFFFFF);
+	fingerMovie.draw(20,20);
 }
 
 

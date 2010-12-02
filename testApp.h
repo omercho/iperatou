@@ -39,6 +39,9 @@ public:
 
 	void windowResized(int w, int h);
 
+	ofVideoPlayer 		fingerMovie;
+	bool                frameByframe;
+
 	void addToFluid(float x, float y, float dx, float dy, bool addColor = true, bool addForce = true);
 
 	bool				drawFluid;
