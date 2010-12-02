@@ -157,7 +157,7 @@ void testApp::update(){
 		
 		// find contours which are between the size of 20 pixels and 1/3 the w*h pixels.
 		// also, find holes is set to true so we will get interior contours as well....
-		contourFinder.findContours(grayDiff, 20, (340*240)/3, 10, true);	// find holes
+		contourFinder.findContours(grayDiff, 20, (340*240)/3, 1, true);	// find holes
 	}
 	
 	
@@ -199,34 +199,40 @@ void testApp::draw(){
 	gui.draw();
 #endif
 
-	ofSetColor(0xffffff);
-	colorImg.draw(20,20);
-	grayImage.draw(360,20);
-	grayBg.draw(20,280);
-	grayDiff.draw(360,280);
-	
-	// then draw the contours:
-	
-	ofFill();
-	ofSetColor(0x333333);
-	ofRect(360,540,320,240);
-	ofSetColor(0xffffff);
+//	ofSetColor(0xffffff);
+	//colorImg.draw(20,20, 1000, 1000);
+//	grayImage.draw(360,20);
+//	grayBg.draw(20,280);
+//	grayDiff.draw(360,280);
+//	
+//	// then draw the contours:
+//	
+//	ofFill();
+//	ofSetColor(0x333333);
+//	ofRect(360,540,320,240);
+//	ofSetColor(0xffffff);
 	
 	// we could draw the whole contour finder
-	//contourFinder.draw(360,540);
+	//contourFinder.draw(0,0,1000, 1000);
+		contourFinder.draw(0,0,ofGetWidth(), ofGetHeight());
+	
 	
 	// or, instead we can draw each blob individually,
 	// this is how to get access to them:
+	ofSetColor(255,255,255,20);
     for (int i = 0; i < contourFinder.nBlobs; i++){
-        contourFinder.blobs[i].draw(360,540);
+		//addToFluid(mouseNormX, mouseNormY, mouseVelX, mouseVelY, false);
+		addToFluid(contourFinder.blobs[i].centroid.x, contourFinder.blobs[i].centroid.y, 0.01, 0.01, true);		
+		//contourFinder.blobs[i]
+        //contourFinder.blobs[i].draw(0,0);
     }
 	
 	// finally, a report:
 	
-	ofSetColor(0xffffff);
-	char reportStr[1024];
-	sprintf(reportStr, "bg subtraction and blob detection\npress ' ' to capture bg\nthreshold %i (press: +/-)\nnum blobs found %i, fps: %f", threshold, contourFinder.nBlobs, ofGetFrameRate());
-	ofDrawBitmapString(reportStr, 20, 600);
+//	ofSetColor(0xffffff);
+//	char reportStr[1024];
+//	sprintf(reportStr, "bg subtraction and blob detection\npress ' ' to capture bg\nthreshold %i (press: +/-)\nnum blobs found %i, fps: %f", threshold, contourFinder.nBlobs, ofGetFrameRate());
+//	ofDrawBitmapString(reportStr, 20, 600);
 //	
 //	ofSetColor(0xFFFFFF);
 //	fingerMovie.draw(20,20);
@@ -293,6 +299,7 @@ void testApp::mouseMoved(int x, int y ){
     float mouseVelY = (y - pmouseY) * window.invHeight;
 
     addToFluid(mouseNormX, mouseNormY, mouseVelX, mouseVelY, true);
+	cout << mouseNormX << endl;
 }
 
 void testApp::mouseDragged(int x, int y, int button) {
