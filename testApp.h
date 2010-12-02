@@ -3,6 +3,11 @@
 #include "ofMain.h"
 #include "ofxMSAFluid.h"
 #include "ParticleSystem.h"
+#include "ofxOpenCv.h"
+
+//#define _USE_LIVE_VIDEO		// uncomment this to use a live camera
+// otherwise, we'll use a movie file
+
 
 // comment this line out if you don't wanna use TUIO
 // you will need ofxTUIO & ofxOsc
@@ -38,7 +43,26 @@ public:
 	void mouseDragged(int x, int y, int button);
 
 	void windowResized(int w, int h);
-
+	
+	// OpenCV input
+	#ifdef _USE_LIVE_VIDEO
+		ofVideoGrabber 		vidGrabber;
+	#else
+		ofVideoPlayer 		vidPlayer;
+	#endif
+	
+	ofxCvColorImage		colorImg;
+	
+	ofxCvGrayscaleImage 	grayImage;
+	ofxCvGrayscaleImage 	grayBg;
+	ofxCvGrayscaleImage 	grayDiff;
+	
+	ofxCvContourFinder 	contourFinder;
+	
+	int 				threshold;
+	bool				bLearnBakground;
+	
+	// Video input
 	ofVideoPlayer 		fingerMovie;
 	bool                frameByframe;
 
