@@ -4,7 +4,7 @@
 #include "ParticleSystem.h"
 
 
-#define FLUID_WIDTH			150
+#define FLUID_WIDTH			100
 
 
 #pragma mark Custom methods
@@ -222,7 +222,8 @@ void testApp::draw(){
 	ofSetColor(255,255,255,20);
     for (int i = 0; i < contourFinder.nBlobs; i++){
 		//addToFluid(mouseNormX, mouseNormY, mouseVelX, mouseVelY, false);
-		addToFluid(contourFinder.blobs[i].centroid.x, contourFinder.blobs[i].centroid.y, 0.01, 0.01, true);		
+		//addToFluid(contourFinder.blobs[i].centroid.x, contourFinder.blobs[i].centroid.y, 0.01, 0.001, true);
+		addToFluid(contourFinder.blobs[i].centroid.x*8, contourFinder.blobs[i].centroid.y*80, 0.01, 0.001, true);
 		//contourFinder.blobs[i]
         //contourFinder.blobs[i].draw(0,0);
     }
